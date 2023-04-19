@@ -1,31 +1,40 @@
 package khegay.crud_app.models;
 
+import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
+@Entity
+@Table(name = "Person")
 public class Person {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "Name Should not be empty")
     @Size(min = 2,max = 30,message = "Name should be 2 and 30 characters")
+    @Column(name = "name")
     private String name;
 
     @Min(value = 0,message = "Age should be greater than 0")
+    @Column(name = "age")
     private int age;
-    @NotEmpty(message = "Name Should not be empty")
-    @Email(message = "Email should be valid")
+
+    @Column(name = "email")
+    @NotEmpty(message = "Email shoyld not is empty")
+    @Email
     private String email;
+
 
     public Person(){}
 
-    public Person(int id, String name, int age, String email) {
+    public Person(String name, int age) {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.email = email;
+
     }
 
     public int getId() {
@@ -48,12 +57,12 @@ public class Person {
         return age;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
